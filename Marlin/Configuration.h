@@ -456,7 +456,7 @@
  * :[-1, 0, 1, 2, 3, 4, 5, 6, 7]
  */
 #if MOTHERBOARD == BOARD_BTT_SKR_V1_4_TURBO
-  #define SERIAL_PORT -1
+  #define SERIAL_PORT 3
 #else
   #define SERIAL_PORT 1
 #endif
