@@ -30,6 +30,7 @@
 #include "../../../../inc/MarlinConfig.h"
 
 extern const char G28_STR[];
+char public_buf_lg[55];
 
 extern lv_group_t *g;
 static lv_obj_t *scr;
@@ -40,6 +41,7 @@ enum {
   ID_M_POINT3,
   ID_M_POINT4,
   ID_M_POINT5,
+  ID_M_AUTO,
   ID_MANUAL_RETURN
 };
 
@@ -58,6 +60,10 @@ static void event_handler(lv_obj_t *obj, lv_event_t event) {
         queue.inject(public_buf_l);
       }
       break;
+    case ID_M_AUTO: 
+      sprintf_P(public_buf_lg, PSTR("%s\nG29 P1\nG29 P3 T\nG29 T\nG29 S1\nG29 F 10.0\nG29 A\nM500"),"G28");
+      queue.inject(public_buf_lg);
+      break;
     case ID_MANUAL_RETURN:
       lv_clear_manualLevel();
       lv_draw_tool();
@@ -74,6 +80,7 @@ void lv_draw_manualLevel() {
   lv_big_button_create(scr, "F:/bmp_leveling3.bin", leveling_menu.position3, BTN_X_PIXEL * 2 + INTERVAL_V * 3, titleHeight, event_handler, ID_M_POINT3);
   lv_big_button_create(scr, "F:/bmp_leveling4.bin", leveling_menu.position4, BTN_X_PIXEL * 3 + INTERVAL_V * 4, titleHeight, event_handler, ID_M_POINT4);
   lv_big_button_create(scr, "F:/bmp_leveling5.bin", leveling_menu.position5, INTERVAL_V, BTN_Y_PIXEL + INTERVAL_H + titleHeight, event_handler, ID_M_POINT5);
+  lv_big_button_create(scr, "F:/bmp_leveling.bin", leveling_menu.position6, BTN_X_PIXEL + INTERVAL_V * 2, BTN_Y_PIXEL + INTERVAL_H + titleHeight, event_handler, ID_M_AUTO);
   lv_big_button_create(scr, "F:/bmp_return.bin", common_menu.text_back, BTN_X_PIXEL * 3 + INTERVAL_V * 4, BTN_Y_PIXEL + INTERVAL_H + titleHeight, event_handler, ID_MANUAL_RETURN);
 }
 

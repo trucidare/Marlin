@@ -336,6 +336,7 @@
 #define LEVELING_POINT3_TEXT_EN       "Point3"
 #define LEVELING_POINT4_TEXT_EN       "Point4"
 #define LEVELING_POINT5_TEXT_EN       "Point5"
+#define LEVELING_POINT6_TEXT_EN       "Auto"
 
 #define FILESYS_TEXT_EN               "FileSys"
 #define WIFI_TEXT_EN                  "WiFi"

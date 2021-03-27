@@ -420,6 +420,7 @@ typedef struct leveling_menu_disp {
   const char *position3;
   const char *position4;
   const char *position5;
+  const char *position6;
 
   char *back;
 } leveling_menu_def;

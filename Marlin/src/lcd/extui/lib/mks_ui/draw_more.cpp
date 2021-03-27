@@ -61,13 +61,13 @@ static void event_handler(lv_obj_t * obj, lv_event_t event) {
   switch (obj->mks_obj_id) {
     case ID_GCODE: lv_clear_more(); lv_draw_gcode(true); break;
     #if HAS_USER_ITEM(1)
-      case ID_CUSTOM_1: queue.inject_P(PSTR(USER_GCODE_1)); break;
+      case ID_CUSTOM_1: queue.inject_P(PSTR(MAIN_MENU_ITEM_1_GCODE)); break;
     #endif
     #if HAS_USER_ITEM(2)
-      case ID_CUSTOM_2: queue.inject_P(PSTR(USER_GCODE_2)); break;
+      case ID_CUSTOM_2: queue.inject_P(PSTR(MAIN_MENU_ITEM_2_GCODE)); break;
     #endif
     #if HAS_USER_ITEM(3)
-      case ID_CUSTOM_3: queue.inject_P(PSTR(USER_GCODE_3)); break;
+      case ID_CUSTOM_3: queue.inject_P(PSTR(MAIN_MENU_ITEM_3_GCODE)); break;
     #endif
     #if HAS_USER_ITEM(4)
       case ID_CUSTOM_4: queue.inject_P(PSTR(USER_GCODE_4)); break;

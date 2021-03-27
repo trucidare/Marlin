@@ -89,6 +89,7 @@
 #define LEVELING_POINT3_TEXT_RU         "3 точка"
 #define LEVELING_POINT4_TEXT_RU         "4 точка"
 #define LEVELING_POINT5_TEXT_RU         "5 точка"
+#define LEVELING_POINT6_TEXT_RU         "Auto"
 
 #define FILESYS_TEXT_RU                 "система"
 #define WIFI_TEXT_RU                    "WiFi"
