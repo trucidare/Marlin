@@ -22,7 +22,7 @@
 #pragma once
 
 //JUST uncomment the option for your machine
- #define V6_330_TITAN_TMC 1
+ //#define V6_330_TITAN_TMC 1
 // #define V6_330_TITAN_NO_TMC 1
 // #define V6_330_NO_TITAN_TMC 1
 // #define V6_330_NO_TITAN_NO_TMC 1
@@ -55,10 +55,11 @@
 // #define XY2_V5_220_NO_TITAN_NO_TMC 1
 // #define XY2_V5_220_TITAN_NO_TMC 1
 
-// #define BTT_SKR_TURBO_330_NO_TITAN_TMC_2209_UART 1
+//#define BTT_SKR_TURBO_330_NO_TITAN_TMC_2209_UART 1
+#define BTT_SKR_TURBO_330_BMG_TMC_2209_UART_SENSORLESS_PROBING 1
 
-#define TFT_LVGL_UI
-// #define TFT_CLASSIC_UI
+//#define TFT_LVGL_UI
+//#define TFT_CLASSIC_UI
 //#define TFT_COLOR_UI
 
 #if V6_330_TITAN_TMC
@@ -352,6 +353,18 @@
   #define COREXY
   #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
 
+#elif BTT_SKR_TURBO_330_BMG_TMC_2209_UART_SENSORLESS_PROBING
+  #define MOTHERBOARD BOARD_BTT_SKR_V1_4_TURBO
+  #define WITH_TMC_2209_UART 1
+  //#define WITH_TITAN 1
+  #define WITH_BMG 1
+  #define WITH_SENSORLESS_PROBING 1
+  #define X_BED_SIZE 330
+  #define Y_BED_SIZE 330
+  #define Z_MAX_POS 400
+  #define CUSTOM_MACHINE_NAME "X5SA TMC BMG - SP"
+  #define COREXY
+  #define REPRAP_DISCOUNT_FULL_GRAPHIC_SMART_CONTROLLER
 #endif
 
 /**
@@ -1174,6 +1187,8 @@
  */
 #if WITH_TMC && WITH_BMG
   #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 830 }
+#elif WITH_TMC_2209_UART && WITH_BMG
+  #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 830 }
 #elif WITH_TMC && WITH_TITAN
   #define DEFAULT_AXIS_STEPS_PER_UNIT   { 160, 160, 800, 764 }
 #elif WITH_TMC && !WITH_TITAN && !WITH_BMG
@@ -1298,7 +1313,9 @@
  * The probe replaces the Z-MIN endstop and is used for Z homing.
  * (Automatically enables USE_PROBE_FOR_Z_HOMING.)
  */
+#ifndef BTT_SKR_TURBO_330_BMG_TMC_2209_UART_SENSORLESS_PROBING
 #define Z_MIN_PROBE_USES_Z_MIN_ENDSTOP_PIN
+#endif
 
 // Force the use of the probe for Z-axis homing
 //#define USE_PROBE_FOR_Z_HOMING
@@ -1341,6 +1358,7 @@
  */
 #ifdef WITHOUT_ABL
   #define PROBE_MANUALLY
+#elif WITH_SENSORLESS_PROBING  
 #else
   #define FIX_MOUNTED_PROBE
 #endif
@@ -1406,7 +1424,10 @@
  * CAUTION: This can damage machines with Z lead screws.
  *          Take extreme care when setting up this feature.
  */
-//#define SENSORLESS_PROBING
+
+#if WITH_SENSORLESS_PROBING
+  #define SENSORLESS_PROBING
+#endif
 
 //
 // For Z_PROBE_ALLEN_KEY see the Delta example configurations.
@@ -1454,6 +1475,8 @@
  */
 #ifdef XY2_MODELS
 #define NOZZLE_TO_PROBE_OFFSET { -50, -10, 0 }
+#elif WITH_SENSORLESS_PROBING
+#define NOZZLE_TO_PROBE_OFFSET { 0, 0, 0 }  
 #else
 #define NOZZLE_TO_PROBE_OFFSET { -35, -0, 0 }
 #endif
@@ -1809,6 +1832,8 @@
 //#define AUTO_BED_LEVELING_LINEAR
 #if WITHOUT_ABL
   #define MESH_BED_LEVELING
+#elif WITH_SENSORLESS_PROBING
+  #define AUTO_BED_LEVELING_BILINEAR
 #else
   //#define AUTO_BED_LEVELING_BILINEAR
   #define AUTO_BED_LEVELING_UBL
